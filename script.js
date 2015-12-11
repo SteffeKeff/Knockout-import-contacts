@@ -7,7 +7,7 @@ var Globals = {
 
 function values(data){
   var values = data.split(separator);
-
+  
   return values.splice(0, numberOfColumns); //Will splice so values is not more than columns
 }
 
@@ -41,6 +41,7 @@ function AppViewModel() {
     var columns = firstLine.split(separator);
     numberOfColumns = columns.length;
     Globals.columns = columns;
+
     return columns;
   });
 
@@ -60,7 +61,7 @@ function AppViewModel() {
     self.importedText(self.text()); //importedText will get the value of textarea
     self.text(""); //clean the textarea
 
-    console.log(toJson());
+    console.dir(toJson());
   }
 }
 
