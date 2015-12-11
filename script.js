@@ -11,8 +11,20 @@ function values(data){
   return values.splice(0, numberOfColumns); //Will splice so values is not more than columns
 }
 
-function toJson(test){
-  console.log(test.rows);
+function toJson(){
+  var contacts = []; //Empty array for all contacts
+
+  Globals.rows.forEach(function(valuesForOneContact){ //for every row(contact)
+    var contactData = values(valuesForOneContact); //get value from one contact (as an array)
+    var contact = {}; //create empty contact object
+
+    Globals.columns.forEach(function(column) { //for each column
+      contact[column] = contactData.shift(); //set the column as key and first value from the contact as value
+    });
+    contacts.push(contact); //add the contact to the contacts array
+  });
+
+  return contacts;
 }
 
 function AppViewModel() {
@@ -46,7 +58,7 @@ function AppViewModel() {
       self.text(self.text().slice(0,self.text().length-1));
     };
     self.importedContacts(self.text()); //importedContacts will get the value of textarea
-    toJson(Globals);
+    console.dir(toJson());
     $('textarea').val(''); //clean the textarea
   }
 }
