@@ -7,7 +7,7 @@ var Globals = {
 
 function values(data){
   var values = data.split(separator);
-  
+
   return values.splice(0, numberOfColumns); //Will splice so values is not more than columns
 }
 
@@ -45,7 +45,7 @@ function AppViewModel() {
     return columns;
   });
 
-  self.rows = ko.computed(function(){
+  self.previewRows = ko.computed(function(){
     var rows =  self.importedText().split(/\n/);
     rows.shift(); //Removes first line(Column names...)
     Globals.rows = rows.slice();
