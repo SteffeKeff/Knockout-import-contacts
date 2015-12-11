@@ -30,14 +30,14 @@ function toJson(){
 function AppViewModel() {
   var self = this;
   self.text = ko.observable("");
-  self.importedContacts = ko.observable("")
+  self.importedText = ko.observable("")
 
   self.numberOfContacts = ko.computed(function(){
-    return (self.importedContacts().match(/\n/g) || []).length;
+    return (self.importedText().match(/\n/g) || []).length;
   });
 
   self.columnNames = ko.computed(function(){
-    var firstLine =  self.importedContacts().split(/\n/)[0];
+    var firstLine =  self.importedText().split(/\n/)[0];
     var columns = firstLine.split(separator);
     numberOfColumns = columns.length;
     Globals.columns = columns;
@@ -45,7 +45,7 @@ function AppViewModel() {
   });
 
   self.rows = ko.computed(function(){
-    var rows =  self.importedContacts().split(/\n/);
+    var rows =  self.importedText().split(/\n/);
     rows.shift(); //Removes first line(Column names...)
     Globals.rows = rows.slice();
     var topFive = rows.splice(0,5);
@@ -57,9 +57,10 @@ function AppViewModel() {
     while(self.text().slice(-1) === '\n'){ //While last character is a "new line" then remove it
       self.text(self.text().slice(0,self.text().length-1));
     };
-    self.importedContacts(self.text()); //importedContacts will get the value of textarea
-    console.dir(toJson());
-    $('textarea').val(''); //clean the textarea
+    self.importedText(self.text()); //importedText will get the value of textarea
+    self.text(""); //clean the textarea
+
+    console.log(toJson());
   }
 }
 
